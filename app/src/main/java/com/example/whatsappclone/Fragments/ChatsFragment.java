@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.whatsappclone.Adapters.UserAdapter;
 import com.example.whatsappclone.databinding.FragmentChatsBinding;
 import com.example.whatsappclone.Models.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +34,7 @@ public class ChatsFragment extends Fragment {
     FragmentChatsBinding binding;
     ArrayList<User> list=new ArrayList<>();
     FirebaseDatabase database;
+    FirebaseAuth auth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,14 +44,17 @@ public class ChatsFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
+        auth= FirebaseAuth.getInstance();
         database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
+                String UserString=auth.getCurrentUser().getUid()+auth.getCurrentUser().getUid();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     User user=dataSnapshot.getValue(User.class);
                     user.setUserID(dataSnapshot.getKey());
+                    if(user.getUserID()!=UserString)
                     list.add(user);
                 }
                 adapter.notifyDataSetChanged();
