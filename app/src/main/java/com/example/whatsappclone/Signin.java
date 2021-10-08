@@ -54,7 +54,12 @@ public class Signin extends AppCompatActivity {
                 signIn();
             }
         });
-
+        binding.bntFbsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Signin.this, "FaceBook Login Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         dialog= new ProgressDialog(Signin.this);
         dialog.setTitle("Logging In");
@@ -142,6 +147,7 @@ public class Signin extends AppCompatActivity {
                             database.getReference().child("Users").child(user.getUid()).setValue(users);
                             startActivity(new Intent(Signin.this,Homescreen.class));
                             Toast.makeText(Signin.this, "SignIn Using Google", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

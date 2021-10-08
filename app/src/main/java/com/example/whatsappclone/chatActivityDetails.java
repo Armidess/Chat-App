@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.whatsappclone.Adapters.ChatAdapter;
 import com.example.whatsappclone.Models.MessagesModel;
@@ -75,20 +76,24 @@ public class chatActivityDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String message= binding.chatMessage.getText().toString();
-                final MessagesModel model = new MessagesModel(senderID,message);
-                model.setTimestamp(new Date().getTime());
-                binding.chatMessage.setText("");
-                database.getReference().child("Chats").child(SenderRoom).push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        database.getReference().child("Chats").child(ReceiverRoom).push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
+                if(message.length()>0) {
+                    final MessagesModel model = new MessagesModel(senderID, message);
+                    model.setTimestamp(new Date().getTime());
+                    binding.chatMessage.setText("");
+                    database.getReference().child("Chats").child(SenderRoom).push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            database.getReference().child("Chats").child(ReceiverRoom).push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
 
-                            }
-                        });
-                    }
-                });
+                                }
+                            });
+                        }
+                    });
+                }else{
+                    Toast.makeText(chatActivityDetails.this, "Enter A Message", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
