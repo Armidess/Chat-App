@@ -2,6 +2,7 @@ package com.example.whatsappclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.whatsappclone.Adapters.FragmentAdapter;
 import com.example.whatsappclone.databinding.ActivityHomescreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,15 +26,9 @@ public class Homescreen extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
         binding = ActivityHomescreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                startActivity(new Intent(Homescreen.this,Signin.class));
-                finish();
-            }
-        });
 
+        binding.viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
+        binding.tablayout.setupWithViewPager(binding.viewPager);
     }
 
     @Override

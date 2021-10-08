@@ -9,17 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsappClone">
-        <activity android:name=".Homescreen"></activity>
-        <activity android:name=".Signin" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".chatActivityDetails"
+            android:exported="true" />
+        <activity android:name=".Homescreen" />
+        <activity android:name=".Signin">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Signup">
-
-        </activity>
+        <activity android:name=".Signup"></activity>
     </application>
 
 </manifest>

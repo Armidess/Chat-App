@@ -1,4 +1,4 @@
-package com.example.whatsappclone.user;
+package com.example.whatsappclone.Models;
 
 public class User {
     String name,password,email,dp,userID,lastmessage;

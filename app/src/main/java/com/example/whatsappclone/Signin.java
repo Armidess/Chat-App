@@ -8,11 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.whatsappclone.databinding.ActivitySigninBinding;
-import com.example.whatsappclone.user.User;
+import com.example.whatsappclone.Models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,6 +39,7 @@ public class Signin extends AppCompatActivity {
         binding=ActivitySigninBinding.inflate(getLayoutInflater());
         auth=FirebaseAuth.getInstance();
         setContentView(binding.getRoot());
+        database = FirebaseDatabase.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
