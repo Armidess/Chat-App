@@ -20,14 +20,12 @@ public class ChatAdapter extends RecyclerView.Adapter {
     ArrayList<MessagesModel> list = new ArrayList<>();
     Context context;
     int Sender_View_Type=1;
-    int Receiver_View_Type=1;
+    int Receiver_View_Type=0;
 
     public ChatAdapter(ArrayList<MessagesModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
-
-
 
     @NonNull
     @Override

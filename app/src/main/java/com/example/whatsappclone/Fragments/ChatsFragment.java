@@ -49,12 +49,10 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                String UserString=auth.getCurrentUser().getUid()+auth.getCurrentUser().getUid();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     User user=dataSnapshot.getValue(User.class);
                     user.setUserID(dataSnapshot.getKey());
-                    if(user.getUserID()!=UserString)
                     list.add(user);
                 }
                 adapter.notifyDataSetChanged();
@@ -65,8 +63,6 @@ public class ChatsFragment extends Fragment {
 
             }
         });
-
-
         return binding.getRoot();
 
     }
