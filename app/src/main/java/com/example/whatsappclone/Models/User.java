@@ -50,6 +50,7 @@ public class User {
         this.dp = dp;
     }
 
+
     public String getUserID() {
         return userID;
     }
@@ -65,4 +66,6 @@ public class User {
     public void setLastmessage(String lastmessage) {
         this.lastmessage = lastmessage;
     }
+
+
 }

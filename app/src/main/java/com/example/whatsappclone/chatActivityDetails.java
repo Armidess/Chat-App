@@ -96,5 +96,23 @@ public class chatActivityDetails extends AppCompatActivity {
                 }
             }
         });
+        binding.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(chatActivityDetails.this, "Call Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.videocall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(chatActivityDetails.this, "Video Call Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.chatSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(chatActivityDetails.this, "Setting Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

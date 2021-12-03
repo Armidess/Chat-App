@@ -37,7 +37,7 @@ public class Signin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         binding=ActivitySigninBinding.inflate(getLayoutInflater());
-        auth=FirebaseAuth.getInstance();
+
         setContentView(binding.getRoot());
         database = FirebaseDatabase.getInstance();
 
@@ -48,6 +48,8 @@ public class Signin extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
+        auth=FirebaseAuth.getInstance();
         binding.bntGooglesi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,9 +148,8 @@ public class Signin extends AppCompatActivity {
                             users.setName(user.getDisplayName());
                             database.getReference().child("Users").child(user.getUid()).setValue(users);
                             startActivity(new Intent(Signin.this,Homescreen.class));
-                            Toast.makeText(Signin.this, "SignIn Using Google", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signin.this, "SignUp Using Google", Toast.LENGTH_SHORT).show();
                             finish();
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -156,5 +157,10 @@ public class Signin extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+
+
 
 }
