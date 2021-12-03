@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.whatsappclone.R;
 import com.example.whatsappclone.chatActivityDetails;
 import com.example.whatsappclone.Models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +27,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewHolder>{
 
     ArrayList<User> list= new ArrayList<>();
     Context context;
-
+    FirebaseDatabase database;
     public UserAdapter(ArrayList<User> list, Context context) {
         this.list = list;
         this.context = context;
@@ -40,7 +45,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.viewHolder>{
         User user=list.get(position);
         Picasso.get().load(user.getDp()).placeholder(R.drawable.user_512).into(holder.imgView);
         holder.userName.setText(user.getName());
+        database.getInstance().getReference().child("Chats").child(FirebaseAuth.getInstance().getUid() + user.getUserID()).orderByChild("timestamp")
+                .limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChildren())
+                {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        holder.lastMessage.setText(dataSnapshot.child("message").getValue().toString());
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
