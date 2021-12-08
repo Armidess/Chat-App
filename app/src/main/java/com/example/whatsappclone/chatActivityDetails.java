@@ -53,8 +53,8 @@ public class chatActivityDetails extends AppCompatActivity {
                 list.clear();
                 for(DataSnapshot snapshot1 : snapshot.getChildren())
                 {
-                    MessagesModel model= snapshot1.getValue(MessagesModel.class);
-                    list.add(model);
+                        MessagesModel model = snapshot1.getValue(MessagesModel.class);
+                        list.add(model);
                 }
                 chatAdapter.notifyDataSetChanged();
             }
