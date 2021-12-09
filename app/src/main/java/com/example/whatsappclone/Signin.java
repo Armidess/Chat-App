@@ -148,7 +148,7 @@ public class Signin extends AppCompatActivity {
                             users.setName(user.getDisplayName());
                             database.getReference().child("Users").child(user.getUid()).setValue(users);
                             startActivity(new Intent(Signin.this,Homescreen.class));
-                            Toast.makeText(Signin.this, "SignUp Using Google", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signin.this, "SignIn Using Google", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.

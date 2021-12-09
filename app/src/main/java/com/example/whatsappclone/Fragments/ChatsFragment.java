@@ -38,7 +38,7 @@ public class ChatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         binding= FragmentChatsBinding.inflate(inflater, container, false);
+        binding= FragmentChatsBinding.inflate(inflater, container, false);
         UserAdapter adapter = new UserAdapter(list,getContext());
         binding.chatRecyclerView.setAdapter(adapter);
         database = FirebaseDatabase.getInstance();
