@@ -40,10 +40,7 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding= FragmentChatsBinding.inflate(inflater, container, false);
         UserAdapter adapter = new UserAdapter(list,getContext());
-        binding.chatRecyclerView.setAdapter(adapter);
         database = FirebaseDatabase.getInstance();
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-        binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
         auth= FirebaseAuth.getInstance();
         database.getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,9 +48,11 @@ public class ChatsFragment extends Fragment {
                 list.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    User user=dataSnapshot.getValue(User.class);
-                    user.setUserID(dataSnapshot.getKey());
-                    list.add(user);
+                    if(auth.getCurrentUser().getUid()!= dataSnapshot.getKey()) {
+                        User user = dataSnapshot.getValue(User.class);
+                        user.setUserID(dataSnapshot.getKey());
+                        list.add(user);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -63,6 +62,10 @@ public class ChatsFragment extends Fragment {
 
             }
         });
+        binding.chatRecyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        binding.chatRecyclerView.setLayoutManager(linearLayoutManager);
+
         return binding.getRoot();
 
     }
